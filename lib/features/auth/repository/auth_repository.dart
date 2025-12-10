@@ -1,5 +1,4 @@
 import 'package:gibas/domain/base/repository.dart';
-import 'package:gibas/features/auth/model/auth.dart';
 import 'package:gibas/features/auth/model/login_request.dart';
 import 'package:gibas/features/auth/model/login_response.dart';
 
@@ -13,14 +12,6 @@ class AuthRepository extends Repository {
     );
   }
 
-  Future<DataResult<Auth>> profile() async {
-    return await dioService.get(
-      url: Endpoint.profile,
-      loading: true,
-      fromJsonT: (data) => Auth.fromJson(data),
-    );
-  }
-
   Future<DataResult<LoginResponse>> verifyAccount(String confirmHash) async {
     final params = {
       'confirm_hash': confirmHash,
@@ -28,7 +19,7 @@ class AuthRepository extends Repository {
 
     return await dioService.get(
       url: Endpoint.verify,
-      param: params, // <-- pakai param di sini
+      param: params,
       loading: true,
       fromJsonT: (data) => LoginResponse.fromJson(data),
     );

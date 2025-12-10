@@ -2,7 +2,6 @@ import 'package:gibas/core/app/constant/hive_key.dart';
 import 'package:gibas/core/service/dio_service.dart';
 import 'package:gibas/core/service/onesignal_service.dart';
 import 'package:gibas/core/utils/debouncer.dart';
-import 'package:gibas/features/auth/model/auth.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:gibas/core/app/constant/role.dart';
 import 'package:gibas/core/utils/log.dart';
@@ -11,7 +10,6 @@ import 'package:gibas/core/utils/utils.dart';
 import 'package:gibas/features/auth/view/login_view.dart';
 import 'package:gibas/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:get/get.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AuthController extends GetxController {
@@ -19,52 +17,46 @@ class AuthController extends GetxController {
   String version = '';
   String build = '';
   String package = '';
-  Auth? auth;
+  // Auth? auth;
   Role? role; // ini bisa tetap untuk shortcut akses
 
   LatLng currentLocation = const LatLng(0, 0);
   final Debouncer debouncer = Debouncer(milliseconds: 1000);
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   String setVersion(String value) => version = value;
 
-  Future<bool> onSetAuth(Auth auth) async {
-    final DatabaseService databaseService = Get.find();
-    await databaseService.write(HiveKey.auth.key, auth.toJson());
-    this.auth = auth;
+  // Future<bool> onSetAuth(Auth auth) async {
+  //   final DatabaseService databaseService = Get.find();
+  //   await databaseService.write(HiveKey.auth.key, auth.toJson());
+  //   this.auth = auth;
 
-    // Ambil role dari userdata
-    role = Role.fromCode(auth.userdata?.role?.roleName ?? '');
-    return true;
-  }
+  //   // Ambil role dari userdata
+  //   role = Role.fromCode(auth.userdata?.role?.roleName ?? '');
+  //   return true;
+  // }
 
-  Future<bool> onCheckAuth() async {
-    final DatabaseService databaseService = Get.find();
-    final DioService dioService = Get.find();
+  // Future<bool> onCheckAuth() async {
+  //   final DatabaseService databaseService = Get.find();
+  //   final DioService dioService = Get.find();
 
-    final bool hasToken = databaseService.hasData(HiveKey.token.key);
-    final bool hasAuth = databaseService.hasData(HiveKey.auth.key);
+  //   final bool hasToken = databaseService.hasData(HiveKey.token.key);
+  //   final bool hasAuth = databaseService.hasData(HiveKey.auth.key);
 
-    if (hasToken && hasAuth) {
-      final token = await databaseService.read(HiveKey.token.key);
-      final authJson = await databaseService.read(HiveKey.auth.key);
+  //   if (hasToken && hasAuth) {
+  //     final token = await databaseService.read(HiveKey.token.key);
+  //     final authJson = await databaseService.read(HiveKey.auth.key);
 
-      dioService.setAuthToken(token);
+  //     dioService.setAuthToken(token);
 
-      // Parse data dari Hive
-      auth = Auth.fromJson(Map<String, dynamic>.from(authJson));
-      role = Role.fromCode(auth?.userdata?.role?.roleName ?? '');
-      return true;
-    } else {
-      auth = null;
-      role = null;
-      return false;
-    }
-  }
+  //     auth = Auth.fromJson(Map<String, dynamic>.from(authJson));
+  //     role = Role.fromCode(auth?.userdata?.role?.roleName ?? '');
+  //     return true;
+  //   } else {
+  //     auth = null;
+  //     role = null;
+  //     return false;
+  //   }
+  // }
 
   Future<bool> onSetToken(String? token) async {
     if (token != null) {
@@ -83,7 +75,7 @@ class AuthController extends GetxController {
     await databaseService.clearDatasource();
     version = '';
     await deleteTempDirectory();
-    auth = null;
+    // auth = null;
     role = null;
     return true;
   }
@@ -93,7 +85,7 @@ class AuthController extends GetxController {
       try {
         await OnesignalService().clearExternalId();
       } catch (e) {
-        print("OneSignal logout error: $e");
+        Log.d('OneSignal logout error: $e');
       }
 
       await clear();

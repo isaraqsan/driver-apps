@@ -33,22 +33,13 @@ class OrderDetailView extends StatelessWidget {
   Widget _content(OrderDetailController controller) {
     return Stack(
       children: [
-        // ======================
-        // FULLSCREEN MAP
-        // ======================
         Positioned.fill(child: _buildOSMMap(item, controller)),
-
-        // ======================
-        // FLOATING ACTION BUTTON
-        // ======================
         Positioned(
           left: 20,
           right: 20,
           bottom: 240,
           child: _actionButton(controller),
         ),
-
-        // Tambahkan di Stack (Top Left)
         Positioned(
           top: 60,
           left: 20,
@@ -76,10 +67,6 @@ class OrderDetailView extends StatelessWidget {
             ),
           ),
         ),
-
-        // ======================
-        // REFRESH LOCATION BUTTON (Top Right)
-        // ======================
         Positioned(
           top: 60,
           right: 20,
@@ -115,10 +102,6 @@ class OrderDetailView extends StatelessWidget {
             },
           ),
         ),
-
-        // ======================
-        // DETAILS CARD (Bottom)
-        // ======================
         Positioned(
           left: 20,
           right: 20,
@@ -139,7 +122,7 @@ class OrderDetailView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // NAME
+                
                 Text(
                   item.customerName,
                   style: const TextStyle(
@@ -152,7 +135,6 @@ class OrderDetailView extends StatelessWidget {
 
                 const SizedBox(height: 8),
 
-                // ADDRESS
                 Text(
                   item.address,
                   style: const TextStyle(
@@ -165,7 +147,6 @@ class OrderDetailView extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                // DATE ROW
                 Row(
                   children: [
                     Container(
@@ -194,7 +175,6 @@ class OrderDetailView extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                // STATUS ROW
                 Row(
                   children: [
                     Container(
@@ -228,19 +208,15 @@ class OrderDetailView extends StatelessWidget {
     );
   }
 
-  // ============================================================
-  // FULLSCREEN OSM MAP
-  // ============================================================
   Widget _buildOSMMap(OrderItem item, OrderDetailController c) {
     LatLng target;
 
-    // Tentukan target berdasarkan step
     if (c.step == OrderStep.accepted) {
       target = LatLng(item.pickupLat, item.pickupLong);
     } else if (c.step == OrderStep.pickedUp || c.step == OrderStep.delivering) {
       target = LatLng(item.dropLat, item.dropLong);
     } else {
-      target = LatLng(item.pickupLat, item.pickupLong); // default
+      target = LatLng(item.pickupLat, item.pickupLong);
     }
 
     final LatLng? driver = c.driverLocation;
@@ -422,7 +398,6 @@ class OrderDetailView extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Drag Handle
                     Container(
                       width: 40,
                       height: 4,
@@ -433,7 +408,6 @@ class OrderDetailView extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Title
                     Text(
                       isPickUp ? 'Upload Foto Pick Up' : 'Upload Foto Drop Off',
                       style: const TextStyle(
@@ -445,7 +419,6 @@ class OrderDetailView extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Photo Picker
                     PhotoPicker(
                       height: 200,
                       width: double.infinity,
@@ -457,7 +430,6 @@ class OrderDetailView extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Action Button
                     CupertinoButton(
                       padding: EdgeInsets.zero,
                       onPressed: c.selectedFile == null

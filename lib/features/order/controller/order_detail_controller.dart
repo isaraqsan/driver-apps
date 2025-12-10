@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as Math;
-import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:gibas/core/utils/location_usecase.dart';
@@ -29,7 +28,7 @@ class OrderDetailController extends GetxController {
   StreamSubscription<Position>? locationSub;
   final MapController mapController = MapController();
   bool isAutoFollow = true;
-  String? pickUpPhoto; // path atau base64
+  String? pickUpPhoto;
   String? deliverPhoto;
   File? selectedFile;
   late OrderItem item;
@@ -37,10 +36,9 @@ class OrderDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Tangkap argument
+
     item = Get.arguments as OrderItem;
 
-    // Ambil lokasi awal tanpa menunggu
     _initDriverLocation();
   }
 
@@ -50,15 +48,14 @@ class OrderDetailController extends GetxController {
       driverLocation = LatLng(pos.latitude, pos.longitude);
       _lastDriverLocation = driverLocation;
 
-      // Bisa langsung hitung route ke pickup
       _currentTarget = LatLng(item.pickupLat, item.pickupLong);
       try {
         route = await fetchRoute(driverLocation!, _currentTarget!);
       } catch (e) {
-        Log.e("Failed to fetch initial route: $e");
+        Log.e('Failed to fetch initial route: $e');
       }
 
-      update(); // trigger rebuild map
+      update();
     }
   }
 
@@ -68,9 +65,6 @@ class OrderDetailController extends GetxController {
     super.onClose();
   }
 
-  // =============================
-  // STEP 1 : AMBIL ORDER
-  // =============================
   Future<void> takeOrder(LatLng target) async {
     step = OrderStep.accepted;
     update();
@@ -78,15 +72,11 @@ class OrderDetailController extends GetxController {
     await _startTracking(target);
   }
 
-  // =============================
-  // STEP 2 : PICK UP
-  // =============================
   void pickUp() async {
     step = OrderStep.pickedUp;
     Log.d('Order picked up, step updated to: $step');
     update();
 
-    // ganti target ke drop-off
     if (driverLocation != null) {
       _currentTarget = LatLng(item.dropLat, item.dropLong);
       await updateRoute(_currentTarget!);
@@ -94,14 +84,10 @@ class OrderDetailController extends GetxController {
     }
   }
 
-  // =============================
-  // STEP 3 : ANTAR
-  // =============================
   void deliver() async {
     step = OrderStep.delivering;
     update();
 
-    // clear route setelah drop-off (optional)
     route = [];
     update();
   }
@@ -119,27 +105,21 @@ class OrderDetailController extends GetxController {
     update();
   }
 
-  // =============================
-  // STEP 4 : FINISH
-  // =============================
   void finishOrder() {
     step = OrderStep.finished;
     locationSub?.cancel();
     update();
   }
 
-  // =============================
-  // TRACK DRIVER LOCATION + UPDATE ROUTE
-  // =============================
   Future<void> _startTracking(LatLng target) async {
-    _currentTarget = target; // simpan target saat ini
+    _currentTarget = target;
     await locationSub?.cancel();
 
     final pos = await locationUseCase.getCurrentLocation();
     if (pos != null) {
       driverLocation = LatLng(pos.latitude, pos.longitude);
       _lastDriverLocation = driverLocation;
-      await updateRoute(_currentTarget!); // load initial route
+      await updateRoute(_currentTarget!);
       update();
     }
 
@@ -162,16 +142,12 @@ class OrderDetailController extends GetxController {
         );
       }
 
-      // update route ke target saat ini
       if (_currentTarget != null) await updateRoute(_currentTarget!);
 
       update();
     });
   }
 
-  // =============================
-  // HITUNG BEARING
-  // =============================
   double _calculateBearing(LatLng? from, LatLng to) {
     if (from == null) return 0;
 
@@ -188,9 +164,6 @@ class OrderDetailController extends GetxController {
     return (brng * 180 / 3.1415926535 + 360) % 360;
   }
 
-  // =============================
-  // FETCH ROUTE DARI OSRM PUBLIC
-  // =============================
   Future<List<LatLng>> fetchRoute(LatLng start, LatLng end) async {
     final url =
         'http://router.project-osrm.org/route/v1/driving/${start.longitude},${start.latitude};${end.longitude},${end.latitude}?overview=full&geometries=geojson';
@@ -208,15 +181,12 @@ class OrderDetailController extends GetxController {
     }
   }
 
-  // =============================
-  // UPDATE ROUTE KE TARGET
-  // =============================
   Future<void> updateRoute(LatLng target) async {
     if (driverLocation == null) return;
     try {
       route = await fetchRoute(driverLocation!, target);
     } catch (e) {
-      Log.e("Failed to fetch route: $e");
+      Log.e('Failed to fetch route: $e');
     }
   }
 

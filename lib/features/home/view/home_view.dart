@@ -31,13 +31,9 @@ class HomeView extends GetView<HomeController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ==========================
-            // TOP SECTION DRIVER INFO
-            // ==========================
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 6),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     width: 46,
@@ -59,9 +55,7 @@ class HomeView extends GetView<HomeController> {
                       size: 24,
                     ),
                   ),
-
                   const SizedBox(width: 12),
-
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,10 +78,6 @@ class HomeView extends GetView<HomeController> {
                       ],
                     ),
                   ),
-
-                  // ==========================
-                  // ONLINE / OFFLINE SWITCH
-                  // ==========================
                   Obx(() {
                     return InkWell(
                         borderRadius: BorderRadius.circular(40),
@@ -202,7 +192,6 @@ class HomeView extends GetView<HomeController> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      // Icon NFC animasi sederhana
                                       Container(
                                         padding: const EdgeInsets.all(12),
                                         decoration: BoxDecoration(
@@ -293,9 +282,6 @@ class HomeView extends GetView<HomeController> {
               }),
             ),
 
-            // ===========================
-            // TITLE LIST CUSTOMER
-            // ===========================
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
               child: Text(
@@ -309,14 +295,12 @@ class HomeView extends GetView<HomeController> {
             ),
 
             const SizedBox(height: 8),
-
-            // SELECTED DATE PICKER
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Obx(() {
                 final date = controller.selectedDate.value;
                 final formatted =
-                    "${date.day} ${controller.monthShort(date.month)} ${date.year}";
+                    '${date.day} ${controller.monthShort(date.month)} ${date.year}';
 
                 return GestureDetector(
                     onTap: () => controller.pickDate(Get.context!),
@@ -331,7 +315,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                       child: Row(
                         children: [
-                          Icon(CupertinoIcons.calendar,
+                          const Icon(CupertinoIcons.calendar,
                               color: Colors.white, size: 18),
                           const SizedBox(width: 8),
                           Text(
@@ -355,9 +339,6 @@ class HomeView extends GetView<HomeController> {
             ),
             const SizedBox(height: 12),
 
-            // ===========================
-            // LIST CUSTOMER
-            // ===========================
             Expanded(
               child: Obx(() {
                 final orders = controller.filteredOrders;
@@ -409,9 +390,6 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  // ===============================
-  // CARD CUSTOMER ORDER
-  // ===============================
   Widget _customerCard(OrderItem item, HomeController controller) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -494,12 +472,12 @@ class HomeView extends GetView<HomeController> {
       ),
       child: Row(
         children: [
-          // Avatar shimmer
+          
           CupertinoShimmer(
               width: 40, height: 40, borderRadius: BorderRadius.circular(40)),
           const SizedBox(width: 12),
 
-          // Title + subtitle shimmer
+          
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

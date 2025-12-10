@@ -5,7 +5,6 @@ import 'package:gibas/features/auth/repository/auth_repository.dart';
 import 'package:gibas/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gibas/features/register/view/landing_ktp_view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -54,13 +53,13 @@ class LoginController extends GetxController {
   }
 
   Future<void> onNavRegister() async {
-    Get.off(() => const LandingKtpView(), transition: Transition.fade);
+    // Get.off(() => const LandingKtpView(), transition: Transition.fade);
   }
 
   Future<void> signInWithGoogle() async {
     try {
       final googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return; // dibatalkan user
+      if (googleUser == null) return; 
 
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -95,7 +94,7 @@ class LoginController extends GetxController {
         ],
       );
 
-      final oauthCredential = OAuthProvider("apple.com").credential(
+      final oauthCredential = OAuthProvider('apple.com').credential(
         idToken: credential.identityToken,
         accessToken: credential.authorizationCode,
       );

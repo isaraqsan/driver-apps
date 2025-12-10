@@ -1,15 +1,4 @@
-enum DashboardMenuType {
-  home,
-  homePar,
-  homeMrc,
-  visit,
-  history,
-  notification,
-  profile,
-  report,
-  trackStaff,
-  message
-}
+enum DashboardMenuType { home, notification, profile, message }
 
 class DashboardItem {
   String icon;

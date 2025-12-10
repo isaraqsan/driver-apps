@@ -28,15 +28,13 @@ class HomeController extends GetxController {
   Future<void> initData() async {
     isLoading.value = true;
     await getPermission();
-    await Future.delayed(
-        const Duration(seconds: 2)); // biar shimmer terasa iOS smooth
+    await Future.delayed(const Duration(seconds: 2));
 
-    // contoh order dummy
     customerOrders.assignAll([
       OrderItem(
           customerName: 'Rudi',
           address: 'Jl. Merpati No. 14',
-          orderDate: DateTime.now(), // hari ini
+          orderDate: DateTime.now(),
           pickupLat: -6.655049734473682,
           pickupLong: 106.8466735258764,
           dropLat: -6.621294406487099,
@@ -44,7 +42,7 @@ class HomeController extends GetxController {
       OrderItem(
           customerName: 'Siti',
           address: 'Komplek Cendana',
-          orderDate: DateTime.now().add(const Duration(days: 1)), // besok
+          orderDate: DateTime.now().add(const Duration(days: 1)),
           pickupLat: -6.655049734473682,
           pickupLong: 106.8466735258764,
           dropLat: -6.621294406487099,
@@ -52,8 +50,7 @@ class HomeController extends GetxController {
       OrderItem(
           customerName: 'Asep',
           address: 'Perum Dahlia',
-          orderDate:
-              DateTime.now().add(const Duration(days: 3)), // tanggal lain
+          orderDate: DateTime.now().add(const Duration(days: 3)),
           pickupLat: -6.655049734473682,
           pickupLong: 106.8466735258764,
           dropLat: -6.621294406487099,
@@ -73,20 +70,16 @@ class HomeController extends GetxController {
 
   Future<void> readNfcCard() async {
     try {
-      // Mulai scan NFC
       final NFCTag tag =
           await FlutterNfcKit.poll(timeout: Duration(seconds: 10));
       nfcTag.value = tag.id;
       Log.d(tag.id);
 
-      // Simulasi dapat saldo dari server / tag
-      // Bisa diganti dengan logika membaca data tag sebenarnya
       nfcBalance.value = 50000;
 
-      // Setelah selesai, stop polling
       await FlutterNfcKit.finish();
     } catch (e) {
-      print('NFC Error: $e');
+      Log.d('NFC Error: $e');
       Utils.toast('Error Gagal membaca kartu NFC', snackType: SnackType.error);
     }
   }
@@ -122,7 +115,6 @@ class HomeController extends GetxController {
           ),
           child: Column(
             children: [
-              // ==== HEADER WITH DONE ====
               Container(
                 height: 50,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -147,8 +139,6 @@ class HomeController extends GetxController {
                   ],
                 ),
               ),
-
-              // ==== DATE PICKER ====
               Expanded(
                 child: CupertinoTheme(
                   data: const CupertinoThemeData(
@@ -194,11 +184,9 @@ class OrderItem {
   final String address;
   final DateTime orderDate;
 
-  // Pickup location
   final double pickupLat;
   final double pickupLong;
 
-  // Drop-off location
   final double dropLat;
   final double dropLong;
 

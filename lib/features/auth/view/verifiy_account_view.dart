@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gibas/core/app/theme.dart';
-import 'package:gibas/domain/usecase/textfield_validator.dart';
 import 'package:gibas/features/auth/controller/verify_account_controller.dart';
 import 'package:gibas/shared/base_scaffold.dart';
 import 'package:gibas/shared/component/buttons.dart';
-import 'package:gibas/shared/component/component.dart';
 import 'package:gibas/shared/typography/_input_field.dart';
 
 class VerifyAccountView extends GetView<VerifyAccountController> {
@@ -48,7 +46,7 @@ class VerifyAccountView extends GetView<VerifyAccountController> {
                 hint: 'Masukkan kode verifikasi',
                 keyboardType: TextInputType.text,
                 prefixIcon: CupertinoIcons.lock,
-                inputFormatters: [],
+                inputFormatters: const [],
               ),
               const SizedBox(height: 30),
               Buttons.button(
@@ -105,11 +103,11 @@ class VerifyAccountView extends GetView<VerifyAccountController> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 8,
-            offset: const Offset(0, 4),
+            offset: Offset(0, 4),
           ),
         ],
       ),

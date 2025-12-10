@@ -1,6 +1,5 @@
 import 'package:gibas/core/app/controller/auth_controller.dart';
 import 'package:gibas/features/auth/view/login_view.dart';
-import 'package:gibas/features/home/view/home_view.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -12,7 +11,7 @@ class SplashscreenController extends GetxController {
   void onReady() async {
     await 2.delay();
     authController = Get.find<AuthController>();
-    await authController.onCheckAuth();
+    // await authController.onCheckAuth();
     await onSetVersion();
     checkSession();
 
@@ -27,10 +26,10 @@ class SplashscreenController extends GetxController {
   }
 
   void checkSession() {
-    if (authController.auth != null) {
-      Get.offAll(() => const HomeView());
-    } else {
-      Get.offAll(() => const LoginView());
-    }
+    // if (authController.auth != null) {
+    //   Get.offAll(() => const HomeView());
+    // } else {
+    Get.offAll(() => const LoginView());
+    // }
   }
 }

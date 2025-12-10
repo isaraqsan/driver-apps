@@ -2,15 +2,10 @@ import 'package:gibas/features/home/view/home_view.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart' show Widget, SizedBox;
 import 'package:gibas/core/app/constant/icons_path.dart';
-import 'package:gibas/core/app/constant/role.dart';
-import 'package:gibas/core/app/controller/auth_controller.dart';
 import 'package:gibas/core/utils/utils.dart';
 import 'package:gibas/features/dashboard/model/dashboard_item.dart';
 import 'package:get/get.dart';
-import 'package:gibas/features/notification/view/notification_view.dart';
-import 'package:gibas/features/profile/view/profile_view.dart';
 import 'package:gibas/shared/view/coming_soon_view.dart';
-import 'package:gibas/shared/view/coming_soon_widget.dart';
 
 class DashboardController extends GetxController
     with StateMixin<List<DashboardItem>> {
@@ -50,7 +45,7 @@ class DashboardController extends GetxController
       DashboardMenuType.home => DashboardItem(
           title: 'Home',
           icon: IconsPath.menuDashboardHome,
-          menu: DashboardMenuType.homePar,
+          menu: DashboardMenuType.home,
           page: const HomeView(),
         ),
       DashboardMenuType.message => DashboardItem(
@@ -59,47 +54,11 @@ class DashboardController extends GetxController
           menu: DashboardMenuType.message,
           page: const ComingSoonView(),
         ),
-      DashboardMenuType.homePar => DashboardItem(
-          title: 'Home',
-          icon: IconsPath.menuDashboardHome,
-          menu: DashboardMenuType.homePar,
-          page: const HomeView(),
-        ),
-      DashboardMenuType.homeMrc => DashboardItem(
-          title: 'Home',
-          icon: IconsPath.menuDashboardHome,
-          menu: DashboardMenuType.homeMrc,
-          page: const HomeView(),
-        ),
-      DashboardMenuType.visit => DashboardItem(
-          title: 'Visit',
-          icon: IconsPath.menuDashboardVisit,
-          menu: DashboardMenuType.visit,
-          page: const HomeView(),
-        ),
-      DashboardMenuType.report => DashboardItem(
-          title: 'Report',
-          icon: IconsPath.menuDashboardReport,
-          menu: DashboardMenuType.report,
-          page: const ComingSoonWidget(),
-        ),
       DashboardMenuType.profile => DashboardItem(
           title: 'Profile',
           icon: IconsPath.menuDashboardProfile,
           menu: DashboardMenuType.profile,
           page: const ComingSoonView(),
-        ),
-      DashboardMenuType.history => DashboardItem(
-          title: 'History',
-          icon: IconsPath.menuDashboardReport,
-          menu: DashboardMenuType.profile,
-          page: const ProfileView(),
-        ),
-      DashboardMenuType.trackStaff => DashboardItem(
-          title: 'Lacak',
-          icon: IconsPath.menuDashboardVisit,
-          menu: DashboardMenuType.trackStaff,
-          page: const HomeView(),
         ),
       DashboardMenuType.notification => DashboardItem(
           title: 'Notification',
