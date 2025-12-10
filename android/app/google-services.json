@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "385853864925",
+    "project_id": "id-act-gibas",
+    "storage_bucket": "id-act-gibas.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385853864925:android:41dd5fdcde9be4298a5434",
+        "android_client_info": {
+          "package_name": "id.act.gibas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385853864925-rt7h83uoqk97nfkj53i1q6q5m9q2ci9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.act.gibas",
+            "certificate_hash": "7cf925d29318c7ae51c6406a2d4e37f61f0706b4"
+          }
+        },
+        {
+          "client_id": "385853864925-9tnfj2e98psutve6uili50h84mr3m6jl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVv2oAmzQuuaLhhFSngw6aRUE2N7gwHyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385853864925-9tnfj2e98psutve6uili50h84mr3m6jl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "385853864925-9bb2ht8ndhk3nkq21ecqofao6as2oun7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "id.act.gibas"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

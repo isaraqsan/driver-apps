@@ -1,0 +1,47 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # ✅ Rules kamu saat ini
+    - avoid_print
+    - avoid_private_typedef_functions
+    - avoid_unnecessary_containers
+    - avoid_redundant_argument_values
+    - curly_braces_in_flow_control_structures
+    - use_key_in_widget_constructors
+    - use_build_context_synchronously
+    - prefer_const_constructors
+    - prefer_final_locals
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - prefer_null_aware_operators
+
+    # ✅ Rekomendasi tambahan
+    - annotate_overrides
+    - avoid_returning_null_for_future
+    - unnecessary_this
+    - prefer_const_literals_to_create_immutables
+    - always_use_package_imports
+    - prefer_final_in_for_each
+    - no_leading_underscores_for_local_identifiers
+    - prefer_single_quotes
+    - sort_child_properties_last
+
+    # ⚠️ Optional — aktifkan kalau kamu ingin enforce lebih ketat
+    # - public_member_api_docs      # Paksa semua public method/class harus ada doc
+    # - lines_longer_than_80_chars  # Atur panjang maksimal per baris
+
+analyzer:
+  exclude:
+    - "**.g.dart"
+    - "**.freezed.dart"
+    - "**.gr.dart"
+    - "**.config.dart"
+    - "**/generated_plugin_registrant.dart"
+  errors:
+    # Tandai warning jadi error jika perlu
+    unused_import: warning
+    dead_code: warning
+    missing_required_param: error
+    missing_return: error
+    must_be_immutable: ignore
